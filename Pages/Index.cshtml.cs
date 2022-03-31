@@ -1,30 +1,30 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Bakery.Data;
+using Bakery.Models;
+using Bakery.Models.Bakery.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Bakery.Data;
-using Bakery.Models.Bakery.Model;
 
 namespace Bakery.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly Bakery.Data.BakeryContext _context;
-
-        public IndexModel(Bakery.Data.BakeryContext context)
+        private readonly BakeryContext _context;
+        public IndexModel(BakeryContext context)
         {
             _context = context;
         }
 
-        public IList<Product> Product { get;set; }
+        public IList<Product> Products { get; set; }
+
+        public Product FeaturedProduct { get; set; }
 
         public async Task OnGetAsync()
         {
-            Product = await _context.Product.ToListAsync();
+            Products = await _context.Product.AsNoTracking().ToListAsync();
+            FeaturedProduct = Products[new Random().Next(Products.Count)];
         }
     }
 }

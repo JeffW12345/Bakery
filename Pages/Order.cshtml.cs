@@ -6,7 +6,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Bakery.Data;
-using Bakery.Model;
+using Bakery.Models;
+using Bakery.Models.Bakery.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,9 +15,9 @@ namespace Bakery.Pages
 {
     public class OrderModel : PageModel
     {
-        private readonly BakeryDataContext _context;
+        private readonly BakeryContext _context;
 
-        public OrderModel(BakeryDataContext context)
+        public OrderModel(BakeryContext context)
         {
             _context = context;
         }
@@ -43,7 +44,7 @@ namespace Bakery.Pages
                 return NotFound();
             }
 
-            Product = await _context.Products.FindAsync(id);
+            Product = await _context.Product.FindAsync(id);
 
             if (Product == null)
             {
@@ -56,7 +57,7 @@ namespace Bakery.Pages
         {
             if (!ModelState.IsValid) return Page();
 
-            Product = await _context.Products.FindAsync(id);
+            Product = await _context.Product.FindAsync(id);
 
             //Enter your Hotmail credentials for UserName/Password and a "From" address for the e-mail
             var SmtpUserName = "";

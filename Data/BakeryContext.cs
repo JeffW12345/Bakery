@@ -1,12 +1,4 @@
-﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Bakery.Models.Bakery.Model;
-
-namespace Bakery.Data
+﻿namespace Bakery.Data
 {
     public class BakeryContext : DbContext
     {

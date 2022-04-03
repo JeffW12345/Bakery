@@ -1,6 +1,10 @@
-﻿namespace Bakery.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Bakery.Models
 {
-    public class User
+    public class User : IdentityUser
     {
+        public string? FirstName;
+        public string? LastName;
     }
 }

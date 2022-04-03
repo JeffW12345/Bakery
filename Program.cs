@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Bakery.Data;
+﻿
+global using Bakery.Models;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using Bakery.Data;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,7 +12,11 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<BakeryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BakeryContext")));
+builder.Services.AddDbContext<UserContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("UserContext")));
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<UserContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
